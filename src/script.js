@@ -1,13 +1,22 @@
-function d3Draw(){
-    var dataset=[5,10,15,20,25,30,35];
-    d3.select("body").append("H1").text("new heading");
-    d3.select("body").append("p").text("new para 1");
+// function d3Draw(){
+//     var dataset=[5,10,15,20,25,30,35];
+//     d3.select("body").append("H1").text("new heading");
+//     d3.select("body").append("p").text("new para 1");
     
-    d3.select("body").selectAll("p")
-       .data(dataset)
-       .enter()
-       .append("p")
-       .text(d => d);
+//     d3.select("body").selectAll("p")
+//        .data(dataset)
+//        .enter()
+//        .append("p")
+//        .text(d => d);
+// // }
+    
+// window.onload= d3Draw;
+
+// alert(d3.version);
+
+function drawMap()
+{
+
 }
-    
-window.onload= d3Draw;
+
+window.onload = drawMap;
