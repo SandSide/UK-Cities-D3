@@ -50,28 +50,27 @@ function drawMap3() {
 }
 
 function drawMap4(){
-    const width = 2000;
-    const height = 2000;
+    const width = 900;
+    const height = 900;
 
-    let projection = d3.geoEquirectangular()
-                        .center([-10,60])
-                        .scale(20000);
-
-
-    let path = d3.geoPath().projection(projection);
-
-    var svg = d3.select('.map-container')
+    var svg = d3.select('body')
                 .append('svg')
                 .attr('width', width)
                 .attr('height', height)
                 .style('margin', '0 auto');
-                // .attr('id', "uk-map");
         
     var g = svg.append('g');
 
     d3.json("assets/united-kingdom-detailed-boundary_1061.geojson")
         .then(data => {
+
             const uk = data; topojson.feature(data, data.features);
+
+            let projection = d3.geoEquirectangular()
+            .scale(4000)
+            .fitSize([width, height], uk);
+
+            let path = d3.geoPath().projection(projection);
 
             g.selectAll('path')
                 .data(uk.features)

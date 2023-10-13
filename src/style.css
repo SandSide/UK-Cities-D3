@@ -2,19 +2,20 @@
 /*    
     width: 100%;
     height: 200rem; */
-    margin: 0 auto;
+    /* margin: 0 auto; */
 }
 
 .country{
     fill: green;
 }
 
-.map-container{
+.country{
+
+}
+
+svg{
+    display: block;
+    margin: auto;
     background-color: lightseagreen;
+    border: 5px solid black;
 }
-
-path.country{
-    /* display: block;
-    margin: auto;  */
-}
-
