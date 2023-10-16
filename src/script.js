@@ -98,7 +98,7 @@ function drawMap(map, cities) {
         .append('circle')
         .attr("cx", function (d) { return projection([d.lng, d.lat])[0]; })
         .attr("cy", function (d) { return projection([d.lng, d.lat])[1]; })
-        .attr("r", 5)
+        .attr("r", d => d.Population/12000)
         .attr("fill", "orange")
         .on("mouseover", function(){
             d3.select(this).attr("fill", "red");
