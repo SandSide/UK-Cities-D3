@@ -13,14 +13,12 @@
 
 }
 
-#map{
+/* #map{
     height: 100rem;
     width: 100rem;
-}
+} */
 
-/* svg{
-    display: block;
-    margin: auto;
+svg{
     background-color: lightseagreen;
     border: 5px solid black;
-} */
+}
