@@ -56,7 +56,7 @@ function placePoints() {
 function displayMap() {
 
     var map = d3.json("assets/united-kingdom-detailed-boundary_1061.geojson");
-    var cities = d3.json("http://34.38.72.236/Circles/Towns/50");
+    var cities = d3.json("http://34.38.72.236/Circles/Towns/25");
 
     Promise.all([map, cities])
         .then(data => {
@@ -99,16 +99,25 @@ function drawMap(map, cities) {
         .attr("cx", function (d) { return projection([d.lng, d.lat])[0]; })
         .attr("cy", function (d) { return projection([d.lng, d.lat])[1]; })
         .attr("r", 5)
-        .attr("fill", "red");
+        .attr("fill", "orange")
+        .on("mouseover", function(){
+            d3.select(this).attr("fill", "red");
+        })
+        .on("mouseout", function(){
+            d3.select(this).attr("fill", "orange");
+        })
 
-    svg.selectAll(".point-label")
-        .data(cities)
-        .enter()
-        .append("text")
-        .attr("class", "point-label")
-        .attr("x", function(d) { return projection([d.lng, d.lat])[0] + 10; })
-        .attr("y", function(d) { return projection([d.lng, d.lat])[1]; })
-        .text(function(d) { return d.Town; });
+    // svg.selectAll(".point-label")
+    //     .data(cities)
+    //     .enter()
+    //     .append("text")
+    //     .attr("class", "point-label")
+    //     .attr("x", function(d) { return projection([d.lng, d.lat])[0] + 10; })
+    //     .attr("y", function(d) { return projection([d.lng, d.lat])[1]; })
+    //     .text(function(d) { return d.Town; })
+    //     .on("mouseover", function(d){
+            
+    //     });
 }
 
 

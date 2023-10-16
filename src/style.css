@@ -22,3 +22,7 @@ svg{
     background-color: lightseagreen;
     border: 5px solid black;
 }
+
+.point{
+    fill: orange;
+}
