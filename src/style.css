@@ -25,4 +25,12 @@ svg{
 
 .point{
     fill: orange;
+    fill-opacity: 70%;
+    stroke: black;
+    stroke-width: 1;
+
+}
+
+.hover{
+    fill: red;
 }

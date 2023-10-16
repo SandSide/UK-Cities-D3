@@ -99,12 +99,12 @@ function drawMap(map, cities) {
         .attr("cx", function (d) { return projection([d.lng, d.lat])[0]; })
         .attr("cy", function (d) { return projection([d.lng, d.lat])[1]; })
         .attr("r", d => d.Population/12000)
-        .attr("fill", "orange")
+        .attr('class', 'point')
         .on("mouseover", function(){
-            d3.select(this).attr("fill", "red");
+            d3.select(this).classed("hover", true);
         })
         .on("mouseout", function(){
-            d3.select(this).attr("fill", "orange");
+            d3.select(this).classed("hover", false);
         })
 
     // svg.selectAll(".point-label")
