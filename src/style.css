@@ -6,7 +6,7 @@
 }
 
 .country{
-    fill: green;
+    fill: #4cd137;
 }
 
 .country{
@@ -19,12 +19,12 @@
 } */
 
 svg{
-    background-color: lightseagreen;
-    border: 5px solid black;
+    background-color: #0097e6;
+    border: 2px solid black;
 }
 
 .point{
-    fill: orange;
+    fill: #fbc531;
     fill-opacity: 70%;
     stroke: black;
     stroke-width: 1;
@@ -35,7 +35,7 @@ svg{
 }
 
 .hover{
-    fill: red;
+    fill: #e84118;
 }
 
 .bg{
