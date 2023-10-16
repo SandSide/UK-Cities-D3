@@ -30,7 +30,14 @@ svg{
     stroke-width: 1;
 
 }
+.point-label{
+    fill: white;
+}
 
 .hover{
     fill: red;
+}
+
+.bg{
+    /* background-color: #dcdde1; */
 }
