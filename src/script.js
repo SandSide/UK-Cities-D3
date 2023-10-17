@@ -1,6 +1,5 @@
 let projection;
 
-
 function displayMap() {
 
     var map = d3.json("assets/united-kingdom-detailed-boundary_1061.geojson");
@@ -22,7 +21,7 @@ function drawMap(map) {
     projection = d3.geoMercator()
         .center([1, 58])
         .scale(2500);
-    
+
     // Create map container
     var svg = d3.select('.map-container')
         .append('svg')
@@ -91,5 +90,6 @@ function displayTowns() {
 
 window.onload = function () {
     displayMap();
+    displayTowns();
 };
 
