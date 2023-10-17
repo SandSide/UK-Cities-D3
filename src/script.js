@@ -57,14 +57,24 @@ function displayTowns() {
             svg.selectAll("circle.point").remove();
             svg.selectAll("text.point-label").remove();
 
-            var tooltip = svg.append('text')
-            .attr('class', 'tool-tip')
-            .attr('x', 10)
-            .attr('y', 50)
-            .attr('fill', 'red')
-            .style('font-size', "34px")
-            .html("hello");
+            var tooltip = svg.append('g')
+                            .attr('x', 100)
+                            .attr('y', 0)
 
+
+            tooltip.append('rect').attr('class', 'tool-tip')
+                // .attr('x', 10)
+                // .attr('y', 50)
+                .attr('width', 50)
+                .attr('height', 50)
+                .attr('fill', 'red')
+
+            tooltip.append('text')
+                // .attr('x', 10)
+                .attr('y', 50)
+                .style('font-size', "12px")
+                .attr('fill', 'black')
+                .text("test");
 
             // Plot points
             var c = svg.selectAll('.point')
@@ -80,15 +90,16 @@ function displayTowns() {
                     var temp = d.Population;
                     d3.select(this).classed('hover', true);
 
-                    tooltip.text(temp);         
-                    tooltip.attr('x', projection([d.lng, d.lat])[0] + 10 )
-                    tooltip.attr('y', projection([d.lng, d.lat])[1] );      
-     
+                    tooltip.text(temp);
+                    tooltip.attr('x', projection([d.lng, d.lat])[0] - 50)
+                    tooltip.attr('y', projection([d.lng, d.lat])[1]);
+
                 })
                 .on("mouseout", function () {
                     d3.select(this).classed('hover', false);
+                    tooltip.text("");
                 });
-        
+
             // Plot points town name
             svg.selectAll('.point-label')
                 .data(data)
