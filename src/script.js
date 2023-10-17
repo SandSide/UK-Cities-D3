@@ -57,6 +57,15 @@ function displayTowns() {
             svg.selectAll("circle.point").remove();
             svg.selectAll("text.point-label").remove();
 
+            var tooltip = svg.append('text')
+            .attr('class', 'tool-tip')
+            .attr('x', 10)
+            .attr('y', 50)
+            .attr('fill', 'red')
+            .style('font-size', "34px")
+            .html("hello");
+
+
             // Plot points
             var c = svg.selectAll('.point')
                 .data(data)
@@ -66,13 +75,20 @@ function displayTowns() {
                 .attr('cy', function (d) { return projection([d.lng, d.lat])[1]; })
                 .attr('r', d => d.Population / 12000)
                 .attr('class', 'point')
-                .on('mouseover', function () {
+                .on('mouseover', function (event, d) {
+
+                    var temp = d.Population;
                     d3.select(this).classed('hover', true);
+
+                    tooltip.text(temp);         
+                    tooltip.attr('x', projection([d.lng, d.lat])[0] + 10 )
+                    tooltip.attr('y', projection([d.lng, d.lat])[1] );      
+     
                 })
                 .on("mouseout", function () {
                     d3.select(this).classed('hover', false);
-                })
-
+                });
+        
             // Plot points town name
             svg.selectAll('.point-label')
                 .data(data)
@@ -82,11 +98,10 @@ function displayTowns() {
                 .attr('x', function (d) { return projection([d.lng, d.lat])[0] + 10 })
                 .attr('y', function (d) { return projection([d.lng, d.lat])[1] })
                 .text(function (d) { return d.Town; })
-                .on("mouseover", function (d) {
-
-                });
         });
 }
+
+
 
 window.onload = function () {
     displayMap();

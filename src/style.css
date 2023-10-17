@@ -41,3 +41,9 @@ svg{
 .bg{
     /* background-color: #dcdde1; */
 }
+
+.tool-tip{
+    fill: red;
+    background-color: orange;
+    height: 100px;
+}
