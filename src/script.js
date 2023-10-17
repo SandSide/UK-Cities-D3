@@ -79,7 +79,7 @@ function displayTowns() {
 
             var svg = d3.select('#map');
 
-                // Remove Old Data
+            // Remove Old Data
             svg.selectAll("circle.point").remove();
             svg.selectAll("text.point-label").remove();
 
@@ -114,6 +114,5 @@ function displayTowns() {
 
 window.onload = function () {
     displayMap();
-    // displayTowns();
 };
 
