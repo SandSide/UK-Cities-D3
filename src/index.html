@@ -22,17 +22,18 @@
 
             <h2>Settings</h2>
 
-            <label for="customRange2" class="form-label mt-4">Amount of Towns to Display</label>
-            
-            <div class="row">
-                <label for="customRange2" class="form-label col-md-3">0</label>
-                <label for="customRange2" class="form-label col-md-3 text-end">50</label>
-            </div>
-
-            <div class="col-md-6">
-                <input type="range" class="form-range" min="0" max="50" id="customRange2" value="10">
-            </div>
-            <button type="button" class="btn btn-primary">Display Towns</button>
+            <form action="" method="get">
+                <label for="townRange" class="form-label mt-4">Amount of Towns to Display</label>
+                
+                <div class="row">
+                    <label for="townRange" class="form-label col-md-3">0</label>
+                    <label for="townRange" class="form-label col-md-3 text-end">50</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="range" class="form-range" min="0" max="50" id="townRange" value="10">
+                </div>
+                <button type="button" class="btn btn-primary" value="submit" onclick="displayTowns()">Display Towns</button>
+            </form>
         </div>
 
     </div>

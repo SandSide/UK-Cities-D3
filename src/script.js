@@ -1,3 +1,6 @@
+let projection;
+
+
 function displayMap() {
 
     var map = d3.json("assets/united-kingdom-detailed-boundary_1061.geojson");
@@ -18,7 +21,7 @@ function drawMap(map, cities) {
 
     // var amountToDispaly = 
 
-    let projection = d3.geoMercator()
+    projection = d3.geoMercator()
         .center([1, 58])
         .scale(2500);
 
@@ -39,36 +42,78 @@ function drawMap(map, cities) {
         .attr("class", "country")
         .attr('d', path);
 
-    var c = svg.selectAll('.point')
-        .data(cities)
-        .enter()
-        .append('circle')
-        .attr('cx', function (d) { return projection([d.lng, d.lat])[0]; })
-        .attr('cy', function (d) { return projection([d.lng, d.lat])[1]; })
-        .attr('r', d => d.Population/12000)
-        .attr('class', 'point')
-        .on('mouseover', function(){
-            d3.select(this).classed('hover', true);
-        })
-        .on("mouseout", function(){
-            d3.select(this).classed('hover', false);
-        })
+    // var c = svg.selectAll('.point')
+    //     .data(cities)
+    //     .enter()
+    //     .append('circle')
+    //     .attr('cx', function (d) { return projection([d.lng, d.lat])[0]; })
+    //     .attr('cy', function (d) { return projection([d.lng, d.lat])[1]; })
+    //     .attr('r', d => d.Population/12000)
+    //     .attr('class', 'point')
+    //     .on('mouseover', function(){
+    //         d3.select(this).classed('hover', true);
+    //     })
+    //     .on("mouseout", function(){
+    //         d3.select(this).classed('hover', false);
+    //     })
 
-    svg.selectAll('.point-label')
-        .data(cities)
-        .enter()
-        .append('text')
-        .attr('class', 'point-label')
-        .attr('x', function(d) { return projection([d.lng, d.lat])[0] + 10})
-        .attr('y', function(d) { return projection([d.lng, d.lat])[1] })
-        .text(function(d) { return d.Town; })
-        .on("mouseover", function(d){
-            
+    // svg.selectAll('.point-label')
+    //     .data(cities)
+    //     .enter()
+    //     .append('text')
+    //     .attr('class', 'point-label')
+    //     .attr('x', function(d) { return projection([d.lng, d.lat])[0] + 10})
+    //     .attr('y', function(d) { return projection([d.lng, d.lat])[1] })
+    //     .text(function(d) { return d.Town; })
+    //     .on("mouseover", function(d){
+
+    //     });
+}
+
+function displayTowns() {
+
+    var numToDisplay = document.getElementById('townRange').value;
+
+    var temp = d3.json("http://34.38.72.236/Circles/Towns/" + numToDisplay)
+        .then(data => {
+
+            var svg = d3.select('#map');
+
+                // Remove Old Data
+            svg.selectAll("circle.point").remove();
+            svg.selectAll("text.point-label").remove();
+
+            var c = svg.selectAll('.point')
+                .data(data)
+                .enter()
+                .append('circle')
+                .attr('cx', function (d) { return projection([d.lng, d.lat])[0]; })
+                .attr('cy', function (d) { return projection([d.lng, d.lat])[1]; })
+                .attr('r', d => d.Population / 12000)
+                .attr('class', 'point')
+                .on('mouseover', function () {
+                    d3.select(this).classed('hover', true);
+                })
+                .on("mouseout", function () {
+                    d3.select(this).classed('hover', false);
+                })
+
+            svg.selectAll('.point-label')
+                .data(data)
+                .enter()
+                .append('text')
+                .attr('class', 'point-label')
+                .attr('x', function (d) { return projection([d.lng, d.lat])[0] + 10 })
+                .attr('y', function (d) { return projection([d.lng, d.lat])[1] })
+                .text(function (d) { return d.Town; })
+                .on("mouseover", function (d) {
+
+                });
         });
 }
 
-
 window.onload = function () {
     displayMap();
+    // displayTowns();
 };
 
