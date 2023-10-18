@@ -38,12 +38,17 @@ svg{
     fill: #e84118;
 }
 
-.bg{
-    /* background-color: #dcdde1; */
+.tool-tip{
+    position: absolute;
+    background-color: white;
+    display: inline-block;
+    padding: .5rem;
+    border: 2px solid black;
+    border-radius: 1rem;
+    font-size: 1rem;
+    opacity: 0;
 }
 
-.tool-tip{
-    fill: red;
-    background-color: orange;
-    height: 100px;
+.tool-tip p{
+    margin-bottom: 0;
 }

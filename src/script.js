@@ -54,27 +54,13 @@ function displayTowns() {
             var svg = d3.select('#map');
 
             // Remove Old Data
-            svg.selectAll("circle.point").remove();
-            svg.selectAll("text.point-label").remove();
+            svg.selectAll('circle.point').remove();
+            svg.selectAll('text.point-label').remove();
+            d3.selectAll('div.tool-tip').remove();
 
-            var tooltip = svg.append('g')
-                            .attr('x', 100)
-                            .attr('y', 0)
-
-
-            tooltip.append('rect').attr('class', 'tool-tip')
-                // .attr('x', 10)
-                // .attr('y', 50)
-                .attr('width', 50)
-                .attr('height', 50)
-                .attr('fill', 'red')
-
-            tooltip.append('text')
-                // .attr('x', 10)
-                .attr('y', 50)
-                .style('font-size', "12px")
-                .attr('fill', 'black')
-                .text("test");
+            var tooltip = d3.select('body')
+                .append('div')
+                .attr('class', 'tool-tip');
 
             // Plot points
             var c = svg.selectAll('.point')
@@ -83,21 +69,20 @@ function displayTowns() {
                 .append('circle')
                 .attr('cx', function (d) { return projection([d.lng, d.lat])[0]; })
                 .attr('cy', function (d) { return projection([d.lng, d.lat])[1]; })
-                .attr('r', d => d.Population / 12000)
+                .attr('r', d => Math.max((d.Population / 12000),5))
                 .attr('class', 'point')
                 .on('mouseover', function (event, d) {
 
-                    var temp = d.Population;
                     d3.select(this).classed('hover', true);
-
-                    tooltip.text(temp);
-                    tooltip.attr('x', projection([d.lng, d.lat])[0] - 50)
-                    tooltip.attr('y', projection([d.lng, d.lat])[1]);
+                    tooltip.html("<p>Town Name: " + d.Town + "</p><p>Population: " + d.Population + "</p>")
+                        .style('left', projection([d.lng, d.lat])[0] + 50 + 'px')
+                        .style('top', projection([d.lng, d.lat])[1] + 'px')
+                        .style('opacity', 1);
 
                 })
                 .on("mouseout", function () {
                     d3.select(this).classed('hover', false);
-                    tooltip.text("");
+                    tooltip.style('opacity', 0);
                 });
 
             // Plot points town name
