@@ -83,14 +83,14 @@ function displayTowns() {
                 .attr('cy', function (d) { return getXY(d)[1] })
 
             // Plot points town name
-            svg.selectAll('.point-label')
-                .data(data)
-                .enter()
-                .append('text')
-                .attr('class', 'point-label')
-                .attr('x', function (d) { return getXY(d)[0] + 10 })
-                .attr('y', function (d) { return getXY(d)[1] })
-                .text(function (d) { return d.Town; })
+            // svg.selectAll('.point-label')
+            //     .data(data)
+            //     .enter()
+            //     .append('text')
+            //     .attr('class', 'point-label')
+            //     .attr('x', function (d) { return getXY(d)[0] + 10 })
+            //     .attr('y', function (d) { return getXY(d)[1] })
+            //     .text(function (d) { return d.Town; })
         });
 }
 
