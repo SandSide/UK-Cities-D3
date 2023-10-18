@@ -51,12 +51,10 @@ function displayTowns() {
     var temp = d3.json("http://34.38.72.236/Circles/Towns/" + numToDisplay)
         .then(data => {
 
-            var svg = d3.select('#map');
-
             // Remove Old Data
-            svg.selectAll('circle.point').remove();
-            svg.selectAll('text.point-label').remove();
-            d3.selectAll('div.tool-tip').remove();
+            clearData();
+
+            var svg = d3.select('#map');
 
             var tooltip = d3.select('body')
                 .append('div')
@@ -67,15 +65,12 @@ function displayTowns() {
                 .data(data)
                 .enter()
                 .append('circle')
-                .attr('r', d => Math.max((d.Population / 12000),5))
+                .attr('r', d => calculateRadius(d.Population))
                 .attr('class', 'point')
                 .on('mouseover', function (event, d) {
 
                     d3.select(this).classed('hover', true);
-                    tooltip.html("<p>Town Name: " + d.Town + "</p><p>Population: " + d.Population + "</p>")
-                        .style('left', projection([d.lng, d.lat])[0] + 50 + 'px')
-                        .style('top', projection([d.lng, d.lat])[1] + 'px')
-                        .style('opacity', 1);
+                    updateToolTip(d);
 
                 })
                 .on("mouseout", function () {
@@ -83,10 +78,10 @@ function displayTowns() {
                     tooltip.style('opacity', 0);
                 })
 
-                c.transition()
-                    .duration(1000)
-                    .attr('cx', function (d) { return projection([d.lng, d.lat])[0];})
-                    .attr('cy', function (d) { return projection([d.lng, d.lat])[1]; })
+            c.transition()
+                .duration(1000)
+                .attr('cx', function (d) { return projection([d.lng, d.lat])[0]; })
+                .attr('cy', function (d) { return projection([d.lng, d.lat])[1]; })
 
             // Plot points town name
             svg.selectAll('.point-label')
@@ -100,10 +95,25 @@ function displayTowns() {
         });
 }
 
-// function calculateRadius(population)
-// {
+function clearData() {
+    var svg = d3.select('#map');
+    svg.selectAll('circle.point').remove();
+    svg.selectAll('text.point-label').remove();
+    d3.selectAll('div.tool-tip').remove();
+}
 
-// }
+function calculateRadius(population) {
+    return Math.max((population / 12000), 5);
+}
+
+function updateToolTip(d) {
+    var tooltip = d3.select('.tool-tip')
+
+    tooltip.html("<p>Town Name: " + d.Town + "</p><p>Population: " + d.Population + "</p>")
+        .style('left', projection([d.lng, d.lat])[0] + 50 + 'px')
+        .style('top', projection([d.lng, d.lat])[1] + 'px')
+        .style('opacity', 1);
+}
 
 window.onload = function () {
     displayMap();
