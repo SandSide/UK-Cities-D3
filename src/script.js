@@ -67,8 +67,6 @@ function displayTowns() {
                 .data(data)
                 .enter()
                 .append('circle')
-                .attr('cx', function (d) { return projection([d.lng, d.lat])[0]; })
-                .attr('cy', function (d) { return projection([d.lng, d.lat])[1]; })
                 .attr('r', d => Math.max((d.Population / 12000),5))
                 .attr('class', 'point')
                 .on('mouseover', function (event, d) {
@@ -83,7 +81,12 @@ function displayTowns() {
                 .on("mouseout", function () {
                     d3.select(this).classed('hover', false);
                     tooltip.style('opacity', 0);
-                });
+                })
+
+                c.transition()
+                    .duration(1000)
+                    .attr('cx', function (d) { return projection([d.lng, d.lat])[0];})
+                    .attr('cy', function (d) { return projection([d.lng, d.lat])[1]; })
 
             // Plot points town name
             svg.selectAll('.point-label')
@@ -97,7 +100,10 @@ function displayTowns() {
         });
 }
 
+// function calculateRadius(population)
+// {
 
+// }
 
 window.onload = function () {
     displayMap();
