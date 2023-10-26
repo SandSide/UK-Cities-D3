@@ -2,18 +2,19 @@ let projection;
 
 function displayMap() {
 
-    var map = d3.json("assets/united-kingdom-detailed-boundary_1061.geojson");
+    var mapGB = d3.json("https://raw.githubusercontent.com/martinjc/UK-GeoJSON/master/json/administrative/gb/lad.json");
+    var mapNI = d3.json("https://raw.githubusercontent.com/martinjc/UK-GeoJSON/master/json/administrative/ni/lgd.json");
 
-    Promise.all([map])
+    Promise.all([mapGB, mapNI])
         .then(data => {
-            drawMap(data[0]);
+            drawMap(data[0], data[1]);
         })
         .catch(err => {
             console.error(err);
         });
 }
 
-function drawMap(map) {
+function drawMap(map1, map2) {
     const width = 600;
     const height = 900;
     const scale = 2500;
@@ -36,7 +37,16 @@ function drawMap(map) {
 
     // Draw map
     g.selectAll('path')
-        .data(map.features)
+        .data(map1.features)
+        .enter()
+        .append('path')
+        .attr('class', 'country')
+        .attr('d', path);
+
+    var g2 = svg.append('g');
+
+    g2.selectAll('path')
+        .data(map2.features)
         .enter()
         .append('path')
         .attr('class', 'country')
@@ -114,7 +124,7 @@ function updateToolTip(d) {
         .style('opacity', 1);
 }
 
-function getXY(d){
+function getXY(d) {
     return projection([d.lng, d.lat]);
 }
 
