@@ -87,8 +87,8 @@ function plotTowns() {
             // Animate plot points into view
             c.transition()
                 .duration(1000)
-                .attr('cx', function (d) { return getXY(d)[0] })
-                .attr('cy', function (d) { return getXY(d)[1] })
+                .attr('cx', function (d) { return mapCoordinatesToXY(d)[0] })
+                .attr('cy', function (d) { return mapCoordinatesToXY(d)[1] })
 
         });
 }
@@ -111,13 +111,13 @@ function updateToolTip(d) {
     var tooltip = d3.select('.tool-tip')
 
     tooltip.html("<p>Town Name: " + d.Town + "</p><p>Population: " + d.Population + "</p>")
-        .style('left', getXY(d)[0] + 50 + 'px')
-        .style('top', getXY(d)[1] + 'px')
+        .style('left', mapCoordinatesToXY(d)[0] + 50 + 'px')
+        .style('top', mapCoordinatesToXY(d)[1] + 'px')
         .style('opacity', 1);
 }
 
 // Get position based on screen position
-function getXY(d) {
+function mapCoordinatesToXY(d) {
     return projection([d.lng, d.lat]);
 }
 
