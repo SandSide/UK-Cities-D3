@@ -2,19 +2,18 @@ let projection;
 
 function displayMap() {
 
-    var mapGB = d3.json("https://raw.githubusercontent.com/martinjc/UK-GeoJSON/master/json/administrative/gb/lad.json");
-    var mapNI = d3.json("https://raw.githubusercontent.com/martinjc/UK-GeoJSON/master/json/administrative/ni/lgd.json");
+    var mapUK = d3.json("https://raw.githubusercontent.com/SandSide/UK-Cities-D3/development/src/assets/united-kingdom-detailed-boundary_1061.geojson");
 
-    Promise.all([mapGB, mapNI])
+    Promise.all([mapUK])
         .then(data => {
-            drawMap(data[0], data[1]);
+            drawMap(data[0]);
         })
         .catch(err => {
             console.error(err);
         });
 }
 
-function drawMap(map1, map2) {
+function drawMap(map) {
     const width = 600;
     const height = 900;
     const scale = 2500;
@@ -37,16 +36,7 @@ function drawMap(map1, map2) {
 
     // Draw map
     g.selectAll('path')
-        .data(map1.features)
-        .enter()
-        .append('path')
-        .attr('class', 'country')
-        .attr('d', path);
-
-    var g2 = svg.append('g');
-
-    g2.selectAll('path')
-        .data(map2.features)
+        .data(map.features)
         .enter()
         .append('path')
         .attr('class', 'country')
