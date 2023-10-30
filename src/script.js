@@ -1,9 +1,11 @@
 let projection;
 
+// Display map
 function displayMap() {
 
     var mapUK = d3.json("https://raw.githubusercontent.com/SandSide/UK-Cities-D3/development/src/assets/united-kingdom-detailed-boundary_1061.geojson");
 
+    // Load of map data then process
     Promise.all([mapUK])
         .then(data => {
             drawMap(data[0]);
@@ -13,7 +15,10 @@ function displayMap() {
         });
 }
 
+// Draw the map
 function drawMap(map) {
+
+    // Map params
     const width = 600;
     const height = 900;
     const scale = 2500;
@@ -44,7 +49,8 @@ function drawMap(map) {
 
 }
 
-function displayTowns() {
+// Plot towns onto the map
+function plotTowns() {
 
     // Get number to display
     var numToDisplay = document.getElementById('townRange').value;
@@ -57,6 +63,7 @@ function displayTowns() {
 
             var svg = d3.select('#map');
 
+            // Create tooltip
             var tooltip = d3.select('body')
                 .append('div')
                 .attr('class', 'tool-tip');
@@ -77,23 +84,16 @@ function displayTowns() {
                     tooltip.style('opacity', 0);
                 })
 
+            // Animate plot points into view
             c.transition()
                 .duration(1000)
                 .attr('cx', function (d) { return getXY(d)[0] })
                 .attr('cy', function (d) { return getXY(d)[1] })
 
-            // Plot points town name
-            // svg.selectAll('.point-label')
-            //     .data(data)
-            //     .enter()
-            //     .append('text')
-            //     .attr('class', 'point-label')
-            //     .attr('x', function (d) { return getXY(d)[0] + 10 })
-            //     .attr('y', function (d) { return getXY(d)[1] })
-            //     .text(function (d) { return d.Town; })
         });
 }
 
+// Clear old data
 function clearData() {
     var svg = d3.select('#map');
     svg.selectAll('circle.point').remove();
@@ -101,10 +101,12 @@ function clearData() {
     d3.selectAll('div.tool-tip').remove();
 }
 
+// Calculate radius based on population size
 function calculateRadius(population) {
     return Math.max((population / 12000), 8);
 }
 
+// Update tooltip
 function updateToolTip(d) {
     var tooltip = d3.select('.tool-tip')
 
@@ -114,12 +116,13 @@ function updateToolTip(d) {
         .style('opacity', 1);
 }
 
+// Get position based on screen position
 function getXY(d) {
     return projection([d.lng, d.lat]);
 }
 
 window.onload = function () {
     displayMap();
-    displayTowns();
+    plotTowns();
 };
 
