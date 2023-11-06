@@ -46,7 +46,6 @@ function drawMap(map) {
         .append('path')
         .attr('class', 'country')
         .attr('d', path);
-
 }
 
 // Plot towns onto the map
@@ -70,8 +69,8 @@ function plotTowns() {
                 .data(data)
                 .enter()
                 .append('circle')
-                .attr('cx', width/2)
-                .attr('cy', height/2)
+                .attr('cx', width / 2)
+                .attr('cy', height / 2)
                 .attr('r', d => calculateRadius(d.Population))
                 .attr('class', 'point')
                 .on('mouseover', function (event, d) {
@@ -102,8 +101,8 @@ function clearMap(callback) {
     var towns = svg.selectAll('circle.point')
     towns.transition()
         .duration(500)
-        .attr('cx', width/2)
-        .attr('cy', height/2)
+        .attr('cx', width / 2)
+        .attr('cy', height / 2)
         .on('end', () => {
             towns.remove();
             callback();
@@ -142,9 +141,24 @@ function updateSliderLabel() {
     document.getElementById('town-slider-label').innerHTML = `Town Display Amount: <strong>${sliderValue}</strong>`;
 }
 
+function addEvents() {
+
+    const button = document.getElementById('display-towns');
+    button.addEventListener('click', updateMap);
+
+
+    // const button = document.getElementById('remove-towns');
+    // button.addEventListener('click', function(){
+    //     clearMap(function () {
+    //         console.log("hello");
+    //     });
+    // });
+}
+
 window.onload = function () {
     displayMap();
     plotTowns();
     updateSliderLabel();
+    addEvents();
 };
 
