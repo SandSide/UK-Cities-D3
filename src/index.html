@@ -36,7 +36,7 @@
                             <label for="townRange" class="form-label col-6 text-end">100</label>
                         </div>
 
-                        <input type="range" class="form-range" min="0" max="100" id="townRange" value="10" onchange="updateSliderLabel()">
+                        <input type="range" class="form-range" min="0" max="100" id="townRange" value="10" oninput="updateSliderLabel()">
                     </div>
 
                     <button type="button" class="btn btn-primary" value="submit" onclick="plotTowns()">Display Towns</button>
