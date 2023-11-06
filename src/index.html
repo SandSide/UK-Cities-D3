@@ -12,7 +12,7 @@
     <script src = "https://d3js.org/topojson.v1.min.js"></script>
     <script src="script.js"></script>
     </head>
-<body>s
+<body>
 
     <div class="container row mt-5 bg justify-content-between">
 
@@ -22,21 +22,27 @@
         <div class="col-lg-4 col-md-9 mt-5 mt-lg-0">
 
             <div class="settings p-4">
+
                 <h2 class="mt-2 mt-lg-1">Settings</h2>
                 <hr>
-                <p id="population"></p>
+
                 <form action="" method="get" class="mt-1">
+
                     <label for="townRange" class="form-label">Amount of Towns to Display:</label>
                     <div class="col-12">
-                    <div class="row">
-                        <label for="townRange" class="form-label col-6">0</label>
-                        <label for="townRange" class="form-label col-6 text-end pe-0">100</label>
-                    </div>
-                    
+
+                        <div class="row">
+                            <label for="townRange" class="form-label col-6">0</label>
+                            <label for="townRange" class="form-label col-6 text-end">100</label>
+                        </div>
+
                         <input type="range" class="form-range" min="0" max="100" id="townRange" value="10">
                     </div>
+
                     <button type="button" class="btn btn-primary" value="submit" onclick="plotTowns()">Display Towns</button>
+
                 </form>
+
             </div>
 
         </div>
