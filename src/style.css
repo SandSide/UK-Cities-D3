@@ -13,6 +13,12 @@
     fill: orange;
 }
 
+.settings{
+    border: .2rem solid black;
+    background-color: white;
+    border-radius: 1rem;
+}
+
 /* #map{
     height: 100rem;
     width: 100rem;

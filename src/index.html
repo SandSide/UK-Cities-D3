@@ -12,28 +12,32 @@
     <script src = "https://d3js.org/topojson.v1.min.js"></script>
     <script src="script.js"></script>
     </head>
-<body>
+<body>s
 
-    <div class="container row mt-5 bg">
-        <div class="map-container col-lg-7 col-md-10 align-self-end">
+    <div class="container row mt-5 bg justify-content-between">
+
+        <div class="map-container col-lg-6 col-md-10 align-self-end">
         </div>
 
-        <div class="col-lg-5 col-md-12 col-sm-12">
+        <div class="col-lg-4 col-md-9 mt-5 mt-lg-0">
 
-            <h2 class="mt-5">Settings</h2>
-            <p id="population"></p>
-            <form action="" method="get">
-                <label for="townRange" class="form-label mt-4">Amount of Towns to Display</label>
-                
-                <div class="row">
-                    <label for="townRange" class="form-label col-md-3">0</label>
-                    <label for="townRange" class="form-label col-md-3 text-end">100</label>
-                </div>
-                <div class="col-md-6">
-                    <input type="range" class="form-range" min="0" max="100" id="townRange" value="10">
-                </div>
-                <button type="button" class="btn btn-primary" value="submit" onclick="plotTowns()">Display Towns</button>
-            </form>
+            <div class="settings p-4">
+                <h2 class="mt-2 mt-lg-1">Settings</h2>
+                <hr>
+                <p id="population"></p>
+                <form action="" method="get" class="mt-1">
+                    <label for="townRange" class="form-label">Amount of Towns to Display:</label>
+                    <div class="col-12">
+                    <div class="row">
+                        <label for="townRange" class="form-label col-6">0</label>
+                        <label for="townRange" class="form-label col-6 text-end pe-0">100</label>
+                    </div>
+                    
+                        <input type="range" class="form-range" min="0" max="100" id="townRange" value="10">
+                    </div>
+                    <button type="button" class="btn btn-primary" value="submit" onclick="plotTowns()">Display Towns</button>
+                </form>
+            </div>
 
         </div>
 
