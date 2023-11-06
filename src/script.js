@@ -1,3 +1,8 @@
+// Map params
+const width = 600;
+const height = 900;
+const scale = 2500;
+
 let projection;
 
 // Display map
@@ -17,11 +22,6 @@ function displayMap() {
 
 // Draw the map
 function drawMap(map) {
-
-    // Map params
-    const width = 600;
-    const height = 900;
-    const scale = 2500;
 
     // Set projection
     projection = d3.geoMercator()
@@ -51,7 +51,7 @@ function drawMap(map) {
 
 // Plot towns onto the map
 function plotTowns() {
-    
+
     // Get number to display
     var numToDisplay = document.getElementById('townRange').value;
 
@@ -70,6 +70,8 @@ function plotTowns() {
                 .data(data)
                 .enter()
                 .append('circle')
+                .attr('cx', width/2)
+                .attr('cy', height/2)
                 .attr('r', d => calculateRadius(d.Population))
                 .attr('class', 'point')
                 .on('mouseover', function (event, d) {
@@ -99,8 +101,9 @@ function clearMap(callback) {
 
     var towns = svg.selectAll('circle.point')
     towns.transition()
-        .duration(100)
-        .attr('r', 0)
+        .duration(500)
+        .attr('cx', width/2)
+        .attr('cy', height/2)
         .on('end', () => {
             towns.remove();
             callback();
