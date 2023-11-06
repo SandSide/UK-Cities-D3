@@ -51,15 +51,12 @@ function drawMap(map) {
 
 // Plot towns onto the map
 function plotTowns() {
-
+    
     // Get number to display
     var numToDisplay = document.getElementById('townRange').value;
 
     var temp = d3.json("http://34.38.72.236/Circles/Towns/" + numToDisplay)
         .then(data => {
-
-            // Remove Old Data
-            clearData();
 
             var svg = d3.select('#map');
 
@@ -94,10 +91,26 @@ function plotTowns() {
 }
 
 // Clear old data
-function clearData() {
+function clearMap(callback) {
+
     var svg = d3.select('#map');
-    svg.selectAll('circle.point').remove();
+
     d3.selectAll('div.tool-tip').remove();
+
+    var towns = svg.selectAll('circle.point')
+    towns.transition()
+        .duration(100)
+        .attr('r', 0)
+        .on('end', () => {
+            towns.remove();
+            callback();
+        })
+}
+
+function updateMap() {
+    clearMap(function () {
+        plotTowns();
+    });
 }
 
 // Calculate radius based on population size
@@ -121,7 +134,7 @@ function mapCoordinatesToXY(d) {
     return projection([d.lng, d.lat]);
 }
 
-function updateSliderLabel(){
+function updateSliderLabel() {
     var sliderValue = document.getElementById('townRange').value;
     document.getElementById('town-slider-label').innerHTML = `Town Display Amount: <strong>${sliderValue}</strong>`;
 }
