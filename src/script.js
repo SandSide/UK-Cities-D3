@@ -97,7 +97,6 @@ function plotTowns() {
 function clearData() {
     var svg = d3.select('#map');
     svg.selectAll('circle.point').remove();
-    svg.selectAll('text.point-label').remove();
     d3.selectAll('div.tool-tip').remove();
 }
 
@@ -106,11 +105,12 @@ function calculateRadius(population) {
     return Math.max((population / 12000), 8);
 }
 
+
 // Update tooltip
 function updateToolTip(d) {
     var tooltip = d3.select('.tool-tip')
 
-    tooltip.html(`<p><strong>Town Name</strong>: ${d.Town} </p> <p><strong>Population</strong>: ${d.Population}</p>`)
+    tooltip.html(`<p><strong>Town Name</strong>: ${d.Town} </p> <p><strong>Population</strong>: ${d.Population.toLocaleString()}</p>`)
         .style('left', mapCoordinatesToXY(d)[0] + 50 + 'px')
         .style('top', mapCoordinatesToXY(d)[1] + 'px')
         .style('opacity', 1);
