@@ -110,7 +110,7 @@ function calculateRadius(population) {
 function updateToolTip(d) {
     var tooltip = d3.select('.tool-tip')
 
-    tooltip.html("<p><strong>Town Name</strong>: " + d.Town + "</p> <p><strong>Population</strong>: " + d.Population + "</p>")
+    tooltip.html(`<p><strong>Town Name</strong>: ${d.Town} </p> <p><strong>Population</strong>: ${d.Population}</p>`)
         .style('left', mapCoordinatesToXY(d)[0] + 50 + 'px')
         .style('top', mapCoordinatesToXY(d)[1] + 'px')
         .style('opacity', 1);
@@ -123,7 +123,7 @@ function mapCoordinatesToXY(d) {
 
 function updateSliderLabel(){
     var sliderValue = document.getElementById('townRange').value;
-    document.getElementById('town-slider-label').innerHTML = 'Town Display Amount: ' + sliderValue;
+    document.getElementById('town-slider-label').innerHTML = `Town Display Amount: <strong>${sliderValue}</strong>`;
 }
 
 window.onload = function () {
