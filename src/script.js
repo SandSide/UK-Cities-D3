@@ -8,7 +8,7 @@ let projection;
 // Display map
 function displayMap() {
 
-    var mapUK = d3.json("https://raw.githubusercontent.com/SandSide/UK-Cities-D3/development/src/assets/united-kingdom-detailed-boundary_1061.geojson");
+    var mapUK = d3.json("https://raw.githubusercontent.com/SandSide/UK-Towns-D3/main/src/assets/united-kingdom-detailed-boundary_1061.geojson");
 
     // Load of map data then process
     Promise.all([mapUK])
