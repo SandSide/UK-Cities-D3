@@ -99,7 +99,9 @@ function clearMap(callback) {
     d3.selectAll('div.tool-tip').remove();
 
     var towns = svg.selectAll('circle.point')
-    towns.transition()
+
+    if(!towns.empty()){
+        towns.transition()
         .duration(500)
         .attr('cx', width / 2)
         .attr('cy', height / 2)
@@ -107,6 +109,13 @@ function clearMap(callback) {
             towns.remove();
             callback();
         })
+    }
+    else{
+        callback();
+    }
+
+
+
 }
 
 function updateMap() {
@@ -157,7 +166,6 @@ function addEvents() {
 
 window.onload = function () {
     displayMap();
-    plotTowns();
     updateSliderLabel();
     addEvents();
 };
