@@ -1,9 +1,7 @@
 .country{
     fill: #4cd137;
-}
-
-.country tesst{
-    fill: orange;
+    stroke: black;
+    stroke-width: .1rem;
 }
 
 .settings{
