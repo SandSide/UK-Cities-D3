@@ -88,42 +88,22 @@ function plotTowns() {
         });
 }
 
+// Plot town name labels
 function plotTownLabels(data) {
 
     var svg = d3.select('#map');
 
-    svg.selectAll(".point-label")
+    var showLabels = document.getElementById('show-town-labels-switch').checked ? 1 : 0;
+
+    svg.selectAll('.point-label')
         .data(data)
         .enter()
-        .append("text")
-        .attr("class", "point-label")
-        .attr("x", function (d) { return mapCoordinatesToXY(d)[0] + 10; })
-        .attr("y", function (d) { return mapCoordinatesToXY(d)[1]; })
-        .attr('opacity', function () {
-            return document.getElementById('show-town-labels-switch').checked ? 1 : 0;
-        })
+        .append('text')
+        .attr('class', 'point-label')
+        .attr('x', function (d) { return mapCoordinatesToXY(d)[0] + 10; })
+        .attr('y', function (d) { return mapCoordinatesToXY(d)[1]; })
+        .attr('opacity', showLabels)
         .text(function (d) { return d.Town; });
-}
-
-// Clear old data
-function clearMap(callback) {
-
-    var towns = d3.selectAll('circle.point')
-
-    if (!towns.empty()) {
-
-        towns.transition()
-            .duration(500)
-            .attr('cx', width / 2)
-            .attr('cy', height / 2)
-            .on('end', () => {
-                towns.remove();
-                callback();
-            })
-    }
-    else {
-        callback();
-    }
 }
 
 // Update map with new towns
@@ -159,7 +139,7 @@ function updateToolTip(d) {
         .style('opacity', 1);
 }
 
-// Hiden tooltip
+// Hide tooltip
 function hideToolTip() {
     var tooltip = d3.select('.tool-tip');
     tooltip.style('opacity', 0);
@@ -177,8 +157,9 @@ function updateSliderLabel() {
     document.getElementById('town-slider-label').innerHTML = `Town Display Amount: <strong>${sliderValue}</strong>`;
 }
 
-function toogleTownLabels(state) {
-    d3.selectAll(".point-label")
+// Show/hide town point labels
+function toggleTownLabels(state) {
+    d3.selectAll('.point-label')
         .attr('opacity', function () {
             return state ? 1 : 0;
         })
@@ -203,9 +184,9 @@ function addEvents() {
         updateSliderLabel();
     });
 
-    // When show town labels withc is changed, toggle town labels
+    // When show town labels with is changed, toggle town labels
     document.getElementById('show-town-labels-switch').addEventListener('change', function (event) {
-        toogleTownLabels(event.target.checked);
+        toggleTownLabels(event.target.checked);
     });
 }
 

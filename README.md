@@ -12,3 +12,4 @@ Random set of towns is loaded (amount is specified), and then plotted onto the m
 - Remove towns on the map
 - Animate towns onto the map
 - Toggle town labels on/off
+- Town plot points radius depends on population (min size exists)
