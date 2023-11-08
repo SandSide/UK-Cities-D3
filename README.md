@@ -8,8 +8,14 @@ Random set of towns is loaded (amount is specified), and then plotted onto the m
 - Display a map of UK
 - Plot towns onto the map
 - Plot new set of towns onto the map
+    - Achieved via 'Display Towns' button
 - Specify amount of towns to plot
+    - Use slider to specify the amount
+    - Use arrow keys (or equivalent) to get an exact number between 0 - 1000
 - Remove towns on the map
+    - Achieved via 'Remove Towns' button
 - Animate towns onto the map
 - Toggle town labels on/off
-- Town plot points radius depends on population (min size exists)
+    - Achieved via 'Show Town Labels' switch
+- Town plot point radius depends on population 
+    - Min size exists for readability
