@@ -185,6 +185,7 @@ function addEvents() {
     const removeButton = document.getElementById('remove-towns');
     removeButton.addEventListener('click', function () {
         d3.selectAll('circle.point').remove();
+        d3.selectAll('.point-label').remove();
     });
 
     // When slider value is changed event
