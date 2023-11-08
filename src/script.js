@@ -130,7 +130,10 @@ function createToolTip(){
 function updateToolTip(d) {
     var tooltip = d3.select('.tool-tip');
 
-    tooltip.html(`<p><strong>Town Name</strong>: ${d.Town} </p> <p><strong>Population</strong>: ${d.Population.toLocaleString()}</p>`)
+    tooltip.html(`<p><strong>Town Name</strong>: ${d.Town}</p> 
+                    <p><strong>Population</strong>: ${d.Population.toLocaleString()}</p> 
+                    <p><strong>Lan</strong>: ${d.lng}</p> 
+                    <p><strong>Lat</strong>: ${d.lat}</p>`)
         .style('left', mapCoordinatesToXY(d)[0] + 50 + 'px')
         .style('top', mapCoordinatesToXY(d)[1] + 'px')
         .style('opacity', 1);
