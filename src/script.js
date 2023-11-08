@@ -59,11 +59,6 @@ function plotTowns() {
 
             var svg = d3.select('#map');
 
-            // Create tooltip
-            var tooltip = d3.select('body')
-                .append('div')
-                .attr('class', 'tool-tip');
-
             // Plot points
             var c = svg.selectAll('.point')
                 .data(data)
@@ -79,7 +74,7 @@ function plotTowns() {
                 })
                 .on('mouseout', function () {
                     d3.select(this).classed('hover', false);
-                    tooltip.style('opacity', 0);
+                    hideToolTip();
                 })
 
             // Animate plot points into view
@@ -96,11 +91,12 @@ function clearMap(callback) {
 
     var svg = d3.select('#map');
 
-    d3.selectAll('div.tool-tip').remove();
+    // d3.selectAll('.tool-tip').remove();
 
     var towns = svg.selectAll('circle.point')
 
     if(!towns.empty()){
+
         towns.transition()
         .duration(500)
         .attr('cx', width / 2)
@@ -113,15 +109,11 @@ function clearMap(callback) {
     else{
         callback();
     }
-
-
-
 }
 
-function updateMap() {
-    clearMap(function () {
-        plotTowns();
-    });
+function updateMap() { 
+    d3.selectAll('circle.point').remove(); 
+    plotTowns();
 }
 
 // Calculate radius based on population size
@@ -129,15 +121,26 @@ function calculateRadius(population) {
     return Math.max((population / 12000), 8);
 }
 
+function createToolTip(){
+    // Create the tooltip only once
+    var tooltip = d3.select('body')
+    .append('div')
+    .attr('class', 'tool-tip');
+}
 
 // Update tooltip
 function updateToolTip(d) {
-    var tooltip = d3.select('.tool-tip')
+    var tooltip = d3.select('.tool-tip');
 
     tooltip.html(`<p><strong>Town Name</strong>: ${d.Town} </p> <p><strong>Population</strong>: ${d.Population.toLocaleString()}</p>`)
         .style('left', mapCoordinatesToXY(d)[0] + 50 + 'px')
         .style('top', mapCoordinatesToXY(d)[1] + 'px')
         .style('opacity', 1);
+}
+
+function hideToolTip(){
+    var tooltip = d3.select('.tool-tip');
+    tooltip.style('opacity', 0);
 }
 
 // Get position based on screen position
@@ -166,6 +169,7 @@ function addEvents() {
 
 window.onload = function () {
     displayMap();
+    createToolTip();
     updateSliderLabel();
     addEvents();
 };
