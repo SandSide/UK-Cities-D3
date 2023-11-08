@@ -140,6 +140,7 @@ function updateToolTip(d) {
 function hideToolTip(){
     var tooltip = d3.select('.tool-tip');
     tooltip.style('opacity', 0);
+    tooltip.style('pointer-events', 'none');
 }
 
 // Get position based on screen position
