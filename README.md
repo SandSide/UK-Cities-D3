@@ -21,3 +21,4 @@ Random set of towns is loaded (amount is specified), and then plotted onto the m
     - Achieved via 'Use Fancy Points' switch
 - Town plot point radius depends on population 
     - Min size exists for readability
+- Map and town points are cartoony
