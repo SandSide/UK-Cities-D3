@@ -52,7 +52,7 @@ function drawMap(map) {
 function plotTowns() {
 
     // Get number to display
-    var numToDisplay = document.getElementById('townRange').value;
+    var numToDisplay = document.getElementById('town-range').value;
 
     var temp = d3.json("http://34.38.72.236/Circles/Towns/" + numToDisplay)
         .then(data => {
@@ -89,11 +89,7 @@ function plotTowns() {
 // Clear old data
 function clearMap(callback) {
 
-    var svg = d3.select('#map');
-
-    // d3.selectAll('.tool-tip').remove();
-
-    var towns = svg.selectAll('circle.point')
+    var towns = d3.selectAll('circle.point')
 
     if(!towns.empty()){
 
@@ -111,6 +107,7 @@ function clearMap(callback) {
     }
 }
 
+// Update map with new towns
 function updateMap() { 
     d3.selectAll('circle.point').remove(); 
     plotTowns();
@@ -121,6 +118,7 @@ function calculateRadius(population) {
     return Math.max((population / 12000), 8);
 }
 
+// Create tool tip
 function createToolTip(){
     // Create the tooltip only once
     var tooltip = d3.select('body')
@@ -138,6 +136,7 @@ function updateToolTip(d) {
         .style('opacity', 1);
 }
 
+// Hiden tooltip
 function hideToolTip(){
     var tooltip = d3.select('.tool-tip');
     tooltip.style('opacity', 0);
@@ -148,20 +147,30 @@ function mapCoordinatesToXY(d) {
     return projection([d.lng, d.lat]);
 }
 
+// Update slider label with slider value
 function updateSliderLabel() {
-    var sliderValue = document.getElementById('townRange').value;
+    var sliderValue = document.getElementById('town-range').value;
     document.getElementById('town-slider-label').innerHTML = `Town Display Amount: <strong>${sliderValue}</strong>`;
 }
 
+// Add events to webpage elements
 function addEvents() {
 
+    // Update map event
     const button = document.getElementById('display-towns');
     button.addEventListener('click', updateMap);
 
+    // Remove town points event
     const removeButton = document.getElementById('remove-towns');
     removeButton.addEventListener('click', function(){
         d3.selectAll('circle.point').remove(); 
     });
+
+    // When slider value is changed event
+    document.getElementById('town-range').addEventListener('input', function(){
+        updateSliderLabel();
+    });
+    
 }
 
 window.onload = function () {
