@@ -82,8 +82,24 @@ function plotTowns() {
                 .duration(1000)
                 .attr('cx', function (d) { return mapCoordinatesToXY(d)[0] })
                 .attr('cy', function (d) { return mapCoordinatesToXY(d)[1] })
-
+                .on('end', () => {
+                    plotTownLabels(data);
+                });
         });
+}
+
+function plotTownLabels(data) {
+
+    var svg = d3.select('#map');
+
+    svg.selectAll(".point-label")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "point-label")
+        .attr("x", function (d) { return mapCoordinatesToXY(d)[0] + 10; })
+        .attr("y", function (d) { return mapCoordinatesToXY(d)[1]; })
+        .text(function (d) { return d.Town; });
 }
 
 // Clear old data
@@ -91,25 +107,26 @@ function clearMap(callback) {
 
     var towns = d3.selectAll('circle.point')
 
-    if(!towns.empty()){
+    if (!towns.empty()) {
 
         towns.transition()
-        .duration(500)
-        .attr('cx', width / 2)
-        .attr('cy', height / 2)
-        .on('end', () => {
-            towns.remove();
-            callback();
-        })
+            .duration(500)
+            .attr('cx', width / 2)
+            .attr('cy', height / 2)
+            .on('end', () => {
+                towns.remove();
+                callback();
+            })
     }
-    else{
+    else {
         callback();
     }
 }
 
 // Update map with new towns
-function updateMap() { 
-    d3.selectAll('circle.point').remove(); 
+function updateMap() {
+    d3.selectAll('circle.point').remove();
+    d3.selectAll('.point-label').remove();
     plotTowns();
 }
 
@@ -119,11 +136,11 @@ function calculateRadius(population) {
 }
 
 // Create tool tip
-function createToolTip(){
+function createToolTip() {
     // Create the tooltip only once
     var tooltip = d3.select('body')
-    .append('div')
-    .attr('class', 'tool-tip');
+        .append('div')
+        .attr('class', 'tool-tip');
 }
 
 // Update tooltip
@@ -140,7 +157,7 @@ function updateToolTip(d) {
 }
 
 // Hiden tooltip
-function hideToolTip(){
+function hideToolTip() {
     var tooltip = d3.select('.tool-tip');
     tooltip.style('opacity', 0);
     tooltip.style('pointer-events', 'none');
@@ -166,15 +183,15 @@ function addEvents() {
 
     // Remove town points event
     const removeButton = document.getElementById('remove-towns');
-    removeButton.addEventListener('click', function(){
-        d3.selectAll('circle.point').remove(); 
+    removeButton.addEventListener('click', function () {
+        d3.selectAll('circle.point').remove();
     });
 
     // When slider value is changed event
-    document.getElementById('town-range').addEventListener('input', function(){
+    document.getElementById('town-range').addEventListener('input', function () {
         updateSliderLabel();
     });
-    
+
 }
 
 window.onload = function () {

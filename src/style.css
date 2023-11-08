@@ -26,6 +26,7 @@ svg{
 }
 .point-label{
     fill: white;
+    pointer-events: none;
 }
 
 .hover{
