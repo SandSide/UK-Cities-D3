@@ -53,6 +53,8 @@ function plotTowns() {
 
     // Get number to display
     var numToDisplay = document.getElementById('town-range').value;
+    var showFancyPoints = document.getElementById('show-fancy-points-switch').checked ? 1 : 0;
+    var showDefaultPoints = document.getElementById('show-fancy-points-switch').checked ? 0 : 1;
 
     var temp = d3.json("http://34.38.72.236/Circles/Towns/" + numToDisplay)
         .then(data => {
@@ -63,25 +65,36 @@ function plotTowns() {
             var c = svg.selectAll('.point')
                 .data(data)
                 .enter()
-                .append('circle')
-                .attr('cx', width / 2)
-                .attr('cy', height / 2)
-                .attr('r', d => calculateRadius(d.Population))
+                .append('g')
                 .attr('class', 'point')
-                .on('mouseover', function (event, d) {
-                    d3.select(this).classed('hover', true);
-                    updateToolTip(d);
-                })
-                .on('mouseout', function () {
-                    d3.select(this).classed('hover', false);
-                    hideToolTip();
-                })
+
+            c.append('circle')
+                .attr('class', 'circle-point')
+                .attr('r', d => calculateRadius(d.Population))
+                .attr('opacity', showDefaultPoints);
+
+            c.append('image')
+                .attr('class', 'town-point')
+                .attr('xlink:href', 'assets/city.svg')
+                .attr('width', d => calculateRadius(d.Population) * 2)
+                .attr('height', d => calculateRadius(d.Population) * 2)
+                .attr('x', d => -calculateRadius(d.Population))
+                .attr('y', d => -calculateRadius(d.Population))
+                .attr('opacity', showFancyPoints);
+
+            c.on('mouseover', function (event, d) {
+                d3.select(this).classed('hover', true);
+                updateToolTip(d);
+            })
+            .on('mouseout', function () {
+                d3.select(this).classed('hover', false);
+                hideToolTip();
+            })
 
             // Animate plot points into view
             c.transition()
                 .duration(1000)
-                .attr('cx', function (d) { return mapCoordinatesToXY(d)[0] })
-                .attr('cy', function (d) { return mapCoordinatesToXY(d)[1] })
+                .attr('transform', d => `translate(${mapCoordinatesToXY(d)})`)
                 .on('end', () => {
                     plotTownLabels(data);
                 });
@@ -108,7 +121,7 @@ function plotTownLabels(data) {
 
 // Update map with new towns
 function updateMap() {
-    d3.selectAll('circle.point').remove();
+    d3.selectAll('.point').remove();
     d3.selectAll('.point-label').remove();
     plotTowns();
 }
@@ -165,6 +178,18 @@ function toggleTownLabels(state) {
         })
 }
 
+function toggleFancyTowns(state) {
+    d3.selectAll('.circle-point')
+        .attr('opacity', function () {
+            return !state ? 1 : 0;
+        })
+
+    d3.selectAll('.town-point')
+        .attr('opacity', function () {
+            return state ? 1 : 0;
+        })
+}
+
 // Add events to webpage elements
 function addEvents() {
 
@@ -175,7 +200,7 @@ function addEvents() {
     // Remove town points event
     const removeButton = document.getElementById('remove-towns');
     removeButton.addEventListener('click', function () {
-        d3.selectAll('circle.point').remove();
+        d3.selectAll('.point').remove();
         d3.selectAll('.point-label').remove();
     });
 
@@ -187,6 +212,11 @@ function addEvents() {
     // When show town labels with is changed, toggle town labels
     document.getElementById('show-town-labels-switch').addEventListener('change', function (event) {
         toggleTownLabels(event.target.checked);
+    });
+
+    // When show town labels with is changed, toggle town labels
+    document.getElementById('show-fancy-points-switch').addEventListener('change', function (event) {
+        toggleFancyTowns(event.target.checked);
     });
 }
 
