@@ -158,13 +158,10 @@ function addEvents() {
     const button = document.getElementById('display-towns');
     button.addEventListener('click', updateMap);
 
-
-    // const button = document.getElementById('remove-towns');
-    // button.addEventListener('click', function(){
-    //     clearMap(function () {
-    //         console.log("hello");
-    //     });
-    // });
+    const removeButton = document.getElementById('remove-towns');
+    removeButton.addEventListener('click', function(){
+        d3.selectAll('circle.point').remove(); 
+    });
 }
 
 window.onload = function () {
