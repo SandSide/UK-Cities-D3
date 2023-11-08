@@ -76,14 +76,15 @@ function plotTowns() {
             c.append('image')
                 .attr('class', 'town-point')
                 .attr('xlink:href', 'assets/city.svg')
-                .attr('width', d => calculateRadius(d.Population) * 2)
-                .attr('height', d => calculateRadius(d.Population) * 2)
-                .attr('x', d => -calculateRadius(d.Population))
-                .attr('y', d => -calculateRadius(d.Population))
+                .attr('width', d => calculateRadius(d.Population) * 3)
+                .attr('height', d => calculateRadius(d.Population) * 3)
+                .attr('x', d => -calculateRadius(d.Population) * 1.5)
+                .attr('y', d => -calculateRadius(d.Population) *1.5)
                 .attr('opacity', showFancyPoints);
 
             c.on('mouseover', function (event, d) {
                 d3.select(this).classed('hover', true);
+
                 d3.select(this)
                     .select('image.town-point')
                     .attr('xlink:href', 'assets/city_highlighted.svg')
@@ -92,10 +93,11 @@ function plotTowns() {
                 
             }).on('mouseout', function () {
                 d3.select(this).classed('hover', false);
+
                 d3.select(this)
                     .select('image.town-point')
                     .attr('xlink:href', 'assets/city.svg')
-                    
+
                 hideToolTip();
             })
 
@@ -186,6 +188,7 @@ function toggleTownLabels(state) {
         })
 }
 
+// Show/Hide fancy town points
 function toggleFancyTowns(state) {
     d3.selectAll('.circle-point')
         .attr('opacity', function () {
@@ -217,12 +220,12 @@ function addEvents() {
         updateSliderLabel();
     });
 
-    // When show town labels with is changed, toggle town labels
+    // When show town labels slider is changed, toggle town labels
     document.getElementById('show-town-labels-switch').addEventListener('change', function (event) {
         toggleTownLabels(event.target.checked);
     });
 
-    // When show town labels with is changed, toggle town labels
+    // When show fancy town points slider is changed, toggle fancy town points
     document.getElementById('show-fancy-points-switch').addEventListener('change', function (event) {
         toggleFancyTowns(event.target.checked);
     });
