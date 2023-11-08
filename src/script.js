@@ -84,10 +84,18 @@ function plotTowns() {
 
             c.on('mouseover', function (event, d) {
                 d3.select(this).classed('hover', true);
+                d3.select(this)
+                    .select('image.town-point')
+                    .attr('xlink:href', 'assets/city_highlighted.svg')
+
                 updateToolTip(d);
-            })
-            .on('mouseout', function () {
+                
+            }).on('mouseout', function () {
                 d3.select(this).classed('hover', false);
+                d3.select(this)
+                    .select('image.town-point')
+                    .attr('xlink:href', 'assets/city.svg')
+                    
                 hideToolTip();
             })
 
