@@ -17,5 +17,7 @@ Random set of towns is loaded (amount is specified), and then plotted onto the m
 - Animate towns onto the map
 - Toggle town labels on/off
     - Achieved via 'Show Town Labels' switch
+- Toggle fancy town points on/off
+    - Achieved via 'Use Fancy Points' switch
 - Town plot point radius depends on population 
     - Min size exists for readability
