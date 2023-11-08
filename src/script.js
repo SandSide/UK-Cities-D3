@@ -99,6 +99,9 @@ function plotTownLabels(data) {
         .attr("class", "point-label")
         .attr("x", function (d) { return mapCoordinatesToXY(d)[0] + 10; })
         .attr("y", function (d) { return mapCoordinatesToXY(d)[1]; })
+        .attr('opacity', function () {
+            return document.getElementById('show-town-labels-switch').checked ? 1 : 0;
+        })
         .text(function (d) { return d.Town; });
 }
 
@@ -174,6 +177,13 @@ function updateSliderLabel() {
     document.getElementById('town-slider-label').innerHTML = `Town Display Amount: <strong>${sliderValue}</strong>`;
 }
 
+function toogleTownLabels(state) {
+    d3.selectAll(".point-label")
+        .attr('opacity', function () {
+            return state ? 1 : 0;
+        })
+}
+
 // Add events to webpage elements
 function addEvents() {
 
@@ -193,6 +203,10 @@ function addEvents() {
         updateSliderLabel();
     });
 
+    // When show town labels withc is changed, toggle town labels
+    document.getElementById('show-town-labels-switch').addEventListener('change', function (event) {
+        toogleTownLabels(event.target.checked);
+    });
 }
 
 window.onload = function () {
