@@ -1,14 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UK Cities D3</title>
     <link rel="stylesheet" href="style.css">
-    <script src="d3.v3/d3.v3.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
     <script src="script.js"></script>
 </head>
+
 <body>
-    
+
+    <div class="container row mt-5 bg justify-content-between">
+
+        <div class="map-container col-lg-6 col-md-10 align-self-end">
+        </div>
+
+        <div class="col-lg-4 col-md-9 mt-5 mt-lg-0">
+
+            <div class="settings p-4">
+
+                <h2 class="mt-2 mt-lg-1">Settings</h2>
+                <hr>
+
+                <form action="" method="get" class="mt-1">
+
+                    <label id="town-slider-label" for="town-range" class="form-label">Town Display Amount:</label>
+                    <div class="col-12">
+
+                        <div class="row">
+                            <label for="town-range" class="form-label col-6 mb-0">0</label>
+                            <label for="town-range" class="form-label col-6 text-end mb-0">1000</label>
+                        </div>
+
+                        <input type="range" class="form-range" min="0" max="1000" id="town-range" value="10" step="1">
+                    </div>
+
+                    <div class="form-check form-switch mb-1 mt-2">
+                        <input class="form-check-input" type="checkbox" id="show-town-labels-switch">
+                        <label class="form-check-label" for="show-town-labels-switch">Show Town Labels</label>
+                    </div>
+
+                    <div class="form-check form-switch mb-4">
+                        <input class="form-check-input" type="checkbox" id="show-fancy-points-switch">
+                        <label class="form-check-label" for="show-fancy-points-switch">Use Fancy Points</label>
+                    </div>
+
+                    <div class="row mt-2 gap-3">
+                        <button type="button" id="display-towns" class="btn btn-primary" value="submit">Display Towns</button>
+                        <button type="button" id="remove-towns" class="btn btn-danger" value="submit">Remove Towns</button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

@@ -1,0 +1,47 @@
+.country{
+    fill: #4cd137;
+    stroke: black;
+    stroke-width: .1rem;
+}
+
+.settings{
+    border: .2rem solid black;
+    background-color: white;
+    border-radius: 1rem;
+}
+
+svg{
+    background-color: #0097e6;
+    border: 2px solid black;
+}
+
+.point{
+    fill: #fbc531;
+    fill-opacity: 70%;
+    stroke: black;
+    stroke-width: 1;
+
+}
+.point-label{
+    fill: black;
+    pointer-events: none;
+}
+
+.hover{
+    fill: #e84118;
+}
+
+.tool-tip{
+    position: absolute;
+    background-color: white;
+    display: inline-block;
+    padding: .5rem;
+    border: 2px solid black;
+    border-radius: 1rem;
+    font-size: 1rem;
+    opacity: 0;
+}
+
+.tool-tip p{
+    margin-bottom: 0;
+}
