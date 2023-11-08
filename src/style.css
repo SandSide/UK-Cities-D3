@@ -25,7 +25,7 @@ svg{
 
 }
 .point-label{
-    fill: white;
+    fill: black;
     pointer-events: none;
 }
 
